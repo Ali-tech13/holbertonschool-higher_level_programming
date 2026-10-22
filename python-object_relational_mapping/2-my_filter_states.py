@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""List states matching a name provided by the user."""
+"""Display states matching the name provided by the user."""
 
 import sys
 
