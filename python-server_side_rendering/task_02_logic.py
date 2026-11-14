@@ -1,44 +1,41 @@
 #!/usr/bin/python3
-"""
-Task 2: Creating a Dynamic Template with Loops and Conditions in Flask
-"""
+"""Render Flask pages and display items loaded from JSON."""
 
 import json
+from pathlib import Path
+
 from flask import Flask, render_template
 
 app = Flask(__name__)
+ITEMS_FILE = Path(__file__).resolve().with_name("items.json")
 
 
-@app.route('/')
+@app.route("/")
 def home():
     """Render the home page."""
-    return render_template('index.html')
+    return render_template("index.html")
 
 
-@app.route('/about')
+@app.route("/about")
 def about():
     """Render the about page."""
-    return render_template('about.html')
+    return render_template("about.html")
 
 
-@app.route('/contact')
+@app.route("/contact")
 def contact():
     """Render the contact page."""
-    return render_template('contact.html')
+    return render_template("contact.html")
 
 
-@app.route('/items')
+@app.route("/items")
 def items():
-    """Read items from items.json and render them using items.html."""
-    try:
-        with open('items.json', 'r', encoding='utf-8') as f:
-            data = json.load(f)
-            items_list = data.get("items", [])
-    except (FileNotFoundError, json.JSONDecodeError):
-        items_list = []
+    """Load the items and render the items page."""
+    with ITEMS_FILE.open(encoding="utf-8") as file:
+        data = json.load(file)
 
-    return render_template('items.html', items=items_list)
+    return render_template("items.html", items=data.get("items", []))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True, port=5000)

@@ -5,19 +5,18 @@
 </head>
 <body>
     {% include 'header.html' %}
-    
-    <h1>Items List</h1>
-    
-    {% if items and items|length > 0 %}
+    <main>
+        <h1>Items List</h1>
+        {% if items %}
         <ul>
             {% for item in items %}
-                <li>{{ item }}</li>
+            <li>{{ item }}</li>
             {% endfor %}
         </ul>
-    {% else %}
+        {% else %}
         <p>No items found</p>
-    % endif %}
-
+        {% endif %}
+    </main>
     {% include 'footer.html' %}
 </body>
 </html>
